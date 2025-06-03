@@ -1,13 +1,14 @@
-import { Link } from "react-router-dom"
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
+import { Link } from "react-router-dom";
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion"; // Add AnimatePresence
 
 interface Project {
-  id: number
-  title: string
-  description: string
-  tags: string[]
-  image: string
-  link: string
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  image: string;
+  link: string;
 }
 
 const Home = () => {
@@ -15,28 +16,31 @@ const Home = () => {
     {
       id: 1,
       title: "E-commerce Platform",
-      description: "A full-stack e-commerce solution with payment processing and inventory management.",
-      tags: ["React", "TypeScript", "Tailwind CSS", "Stripe"],
+      description:
+        "A full-stack e-commerce solution with secure payment processing and efficient inventory management. Built for scalability and a seamless user experience.",
+      tags: ["React", "TypeScript", "Tailwind CSS", "Stripe", "Node.js"],
       image: "/placeholder.svg?height=200&width=400",
       link: "/portfolio/ecommerce",
     },
     {
       id: 2,
       title: "AI Content Generator",
-      description: "An AI-powered application that generates marketing content based on user prompts.",
-      tags: ["React", "Node.js", "OpenAI", "MongoDB"],
+      description:
+        "An innovative AI-powered application designed to generate engaging marketing content from user prompts, significantly boosting productivity for content creators.",
+      tags: ["React", "Node.js", "OpenAI", "MongoDB", "Express"],
       image: "/placeholder.svg?height=200&width=400",
       link: "/portfolio/ai-generator",
     },
     {
       id: 3,
       title: "Health & Fitness Tracker",
-      description: "Mobile-first application for tracking workouts, nutrition, and health metrics.",
-      tags: ["React Native", "Firebase", "Redux", "Charts"],
+      description:
+        "A comprehensive mobile-first application that empowers users to track workouts, monitor nutrition, and visualize health metrics, fostering a healthier lifestyle.",
+      tags: ["React Native", "Firebase", "Redux", "Charts", "Expo"],
       image: "/placeholder.svg?height=200&width=400",
       link: "/portfolio/fitness-tracker",
     },
-  ]
+  ];
 
   const skills = [
     "JavaScript",
@@ -49,115 +53,245 @@ const Home = () => {
     "AWS",
     "Docker",
     "MongoDB",
-  ]
+    "Express.js",
+    "Figma",
+  ];
+
+  // Animation variants for sections
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  // Animation variants for individual items (e.g., skills, projects)
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
+  };
+
+  // Add typing animation variants
+  const typingVariants = {
+    hidden: { opacity: 0 },
+    visible: (i: number) => ({
+      opacity: 1,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.2,
+      },
+    }),
+  };
+
+  // Split name into characters for typing animation
+  const name = "Dafa Ahmad Fahrisi";
+  const nameChars = name.split("");
 
   return (
-    <main className="min-h-screen">
+    <main className="w-screen min-h-screen bg-gray-50 font-sans text-gray-900">
       {/* Hero Section */}
-      <section className="relative py-24 bg-gradient-to-b from-white to-gray-50 w-full px-0">
-        <div className="flex flex-col items-center text-center w-full">
-          <div className="relative mb-8">
-            <div className="absolute -inset-1.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full blur opacity-75"></div>
-            <div className="relative">
-              <img
-                src="/profile-placeholder.jpg"
-                alt="Profile"
-                className="w-32 h-32 rounded-full border-4 border-white object-cover"
-              />
-            </div>
-          </div>
-          <h1 className="text-5xl font-bold text-gray-800 mb-4">Dafa Ahmad Fahrisi</h1>
-          <h2 className="text-2xl font-medium text-gray-600 mb-6">Full Stack Developer</h2>
-          <p className="text-xl text-gray-600 mb-8">
+      <motion.section
+        className="relative flex flex-col items-center justify-center py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg"
+        initial="hidden"
+        animate="visible"
+        variants={sectionVariants}
+      >
+        <div className="max-w-4xl text-center">
+          <motion.div
+            className="relative mb-8"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <div className="absolute -inset-1.5 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full blur-md opacity-75 animate-pulse-slow"></div>
+          </motion.div>
+          <motion.h1
+            className="text-5xl md:text-6xl font-extrabold mb-4 leading-tight tracking-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <AnimatePresence>
+              {nameChars.map((char, index) => (
+                <motion.span
+                  key={index}
+                  custom={index}
+                  variants={typingVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="inline-block"
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </AnimatePresence>
+          </motion.h1>
+          <motion.h2
+            className="text-2xl md:text-3xl font-semibold mb-6 text-indigo-100"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
+            Full Stack Developer
+          </motion.h2>
+          <motion.p
+            className="text-lg md:text-xl text-indigo-100 mb-10 max-w-2xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+          >
             I craft elegant, user-friendly web applications with modern technologies. Focused on creating exceptional
-            digital experiences that solve real problems.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center mb-8">
+            digital experiences that solve real problems with clean, efficient code.
+          </motion.p>
+          <motion.div
+            className="flex flex-wrap gap-5 justify-center mb-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.1 }}
+          >
             <Link
               to="/portfolio"
-              className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="inline-flex items-center bg-white text-indigo-700 px-8 py-4 rounded-full shadow-lg hover:bg-indigo-100 hover:text-indigo-800 transition-all duration-300 font-bold text-lg group"
             >
-              View My Work <ArrowRight className="ml-2 h-4 w-4" />
+              View My Work <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+              className="inline-flex items-center border border-white text-white px-8 py-4 rounded-full hover:bg-white hover:text-indigo-700 transition-colors duration-300 font-bold text-lg"
             >
               Contact Me
             </Link>
-          </div>
-          <div className="flex space-x-4 mt-4">
+          </motion.div>
+          <motion.div
+            className="flex space-x-6 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.3 }}
+          >
             <a
-              href="https://github.com"
+              href="https://github.com/your-github-profile" // Replace with your GitHub URL
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-gray-600 hover:text-gray-800 transition-colors"
+              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110"
+              aria-label="GitHub Profile"
             >
-              <Github className="h-6 w-6" />
-              <span className="sr-only">GitHub</span>
+              <Github className="h-7 w-7" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://linkedin.com/in/your-linkedin-profile" // Replace with your LinkedIn URL
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-gray-600 hover:text-gray-800 transition-colors"
+              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110"
+              aria-label="LinkedIn Profile"
             >
-              <Linkedin className="h-6 w-6" />
-              <span className="sr-only">LinkedIn</span>
+              <Linkedin className="h-7 w-7" />
             </a>
-            <a href="mailto:contact@example.com" className="p-2 text-gray-600 hover:text-gray-800 transition-colors">
-              <Mail className="h-6 w-6" />
-              <span className="sr-only">Email</span>
+            <a
+              href="mailto:your.email@example.com" // Replace with your email
+              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110"
+              aria-label="Email Me"
+            >
+              <Mail className="h-7 w-7" />
             </a>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Skills Section */}
-      <section className="py-16 bg-white w-full px-0">
-        <div className="w-full">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">My Skills</h2>
-          <div className="flex flex-wrap justify-center gap-3 w-full">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white shadow-inner">
+        <div className="max-w-6xl mx-auto">
+          <motion.h2
+            className="text-4xl font-extrabold text-center mb-14 text-gray-800"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
+            My <span className="text-purple-600">Skills</span>
+          </motion.h2>
+          <motion.div
+            className="flex flex-wrap justify-center gap-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
             {skills.map((skill, index) => (
-              <span
+              <motion.span
                 key={index}
-                className="bg-gray-100 text-gray-800 text-sm py-2 px-4 rounded-full border border-gray-200 hover:bg-gray-200 transition-colors"
+                className="bg-purple-50 text-purple-700 text-base py-3 px-6 rounded-full border border-purple-200 hover:bg-purple-100 hover:border-purple-300 transition-all duration-300 font-medium shadow-sm"
+                variants={itemVariants}
+                whileHover={{ scale: 1.05, boxShadow: "0 4px 15px rgba(0,0,0,0.1)" }}
+                whileTap={{ scale: 0.95 }}
               >
                 {skill}
-              </span>
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 bg-gray-50 w-full px-0">
-        <div className="w-full">
-          <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">Featured Projects</h2>
-          <p className="text-center text-gray-600 mb-12">
-            A selection of my recent work across various technologies and industries
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <motion.h2
+            className="text-4xl font-extrabold text-center mb-4 text-gray-800"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
+            Featured <span className="text-indigo-600">Projects</span>
+          </motion.h2>
+          <motion.p
+            className="text-center text-gray-600 mb-14 text-lg max-w-xl mx-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
+            A selection of my recent work, showcasing my skills across various technologies and industries. Each project
+            reflects my commitment to quality and problem-solving.
+          </motion.p>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
+          >
             {projects.map((project) => (
-              <div
+              <motion.div
                 key={project.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 transition-all hover:shadow-lg hover:-translate-y-1"
+                className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
+                variants={itemVariants}
+                whileHover={{ scale: 1.02 }}
               >
                 <div className="aspect-video w-full overflow-hidden">
                   <img
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform hover:scale-105"
+                    className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-110"
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-3 text-gray-800">{project.title}</h3>
-                  <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
+                <div className="p-7">
+                  <h3 className="text-2xl font-bold mb-3 text-gray-800 leading-tight">{project.title}</h3>
+                  <p className="text-gray-600 mb-5 leading-relaxed text-base">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-5">
                     {project.tags.map((tag, index) => (
                       <span
                         key={index}
-                        className="bg-blue-50 text-blue-700 text-xs py-1 px-2 rounded border border-blue-200"
+                        className="bg-blue-50 text-blue-700 text-sm py-1.5 px-3 rounded-full border border-blue-200 font-medium"
                       >
                         {tag}
                       </span>
@@ -165,43 +299,70 @@ const Home = () => {
                   </div>
                   <Link
                     to={project.link}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                    className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-200 group text-lg"
                   >
-                    View Project <ArrowRight className="ml-1 h-4 w-4" />
+                    View Project <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-          <div className="mt-12 text-center">
+          </motion.div>
+          <motion.div
+            className="mt-16 text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
             <Link
               to="/portfolio"
-              className="inline-flex items-center bg-white text-gray-800 px-6 py-3 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors font-medium"
+              className="inline-flex items-center bg-white text-gray-800 px-8 py-4 rounded-full border border-gray-300 hover:bg-gray-100 transition-colors duration-300 font-bold text-lg shadow-md group"
             >
-              View All Projects <ArrowRight className="ml-2 h-4 w-4" />
+              View All Projects <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-pink-600 text-white w-full px-0">
-        <div className="w-full text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to start your project?</h2>
-          <p className="text-xl mb-8 opacity-90">
-            I'm currently available for freelance work and exciting collaborations. Let's create something amazing
-            together.
-          </p>
-          <Link
-            to="/contact"
-            className="inline-flex items-center bg-white text-purple-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-medium"
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-700 to-purple-800 text-white shadow-xl">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.h2
+            className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
           >
-            Get in Touch
-          </Link>
+            Ready to start your project?
+          </motion.h2>
+          <motion.p
+            className="text-xl md:text-2xl mb-10 opacity-95 max-w-2xl mx-auto leading-relaxed"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
+            I'm currently available for freelance work and exciting collaborations. Let's create something amazing
+            together that makes an impact.
+          </motion.p>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
+            <Link
+              to="/contact"
+              className="inline-flex items-center bg-white text-purple-700 px-10 py-5 rounded-full shadow-lg hover:bg-purple-50 hover:text-purple-800 transition-all duration-300 font-bold text-xl transform hover:scale-105"
+            >
+              Get in Touch
+            </Link>
+          </motion.div>
         </div>
       </section>
     </main>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
