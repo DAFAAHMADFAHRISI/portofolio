@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion"; // Add AnimatePresence
+import { ArrowRight, Github, Linkedin, Mail, Sun, Moon } from "lucide-react"; // Import Sun and Moon icons
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react"; // Import useState and useEffect
 
 interface Project {
   id: number;
@@ -12,6 +13,33 @@ interface Project {
 }
 
 const Home = () => {
+  const [darkMode, setDarkMode] = useState(() => {
+    // Initialize dark mode from local storage or system preference
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        return savedTheme === 'dark';
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false; // Default to light mode if not in a browser environment
+  });
+
+  // Apply or remove 'dark' class to the document body
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   const projects: Project[] = [
     {
       id: 1,
@@ -86,10 +114,45 @@ const Home = () => {
   const nameChars = name.split("");
 
   return (
-    <main className="w-screen min-h-screen bg-gray-50 font-sans text-gray-900">
+    <main className="w-screen min-h-screen bg-gray-50 font-sans text-gray-900 dark:bg-gray-900 dark:text-gray-50 transition-colors duration-500">
+      {/* Dark Mode Toggle Button */}
+      <div className="fixed top-6 right-6 z-50">
+        <motion.button
+          onClick={toggleDarkMode}
+          className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg flex items-center justify-center border border-gray-200 dark:border-gray-700 transition-colors duration-300"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Toggle dark mode"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {darkMode ? (
+              <motion.div
+                key="moon"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Moon className="h-6 w-6 text-yellow-400" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="sun"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Sun className="h-6 w-6 text-orange-500" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
+      </div>
+
       {/* Hero Section */}
       <motion.section
-        className="relative flex flex-col items-center justify-center py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg"
+        className="relative flex flex-col items-center justify-center py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg dark:from-gray-800 dark:to-gray-950 transition-colors duration-500"
         initial="hidden"
         animate="visible"
         variants={sectionVariants}
@@ -101,7 +164,7 @@ const Home = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="absolute -inset-1.5 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full blur-md opacity-75 animate-pulse-slow"></div>
+            <div className="absolute -inset-1.5 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full blur-md opacity-75 animate-pulse-slow dark:from-gray-600 dark:to-gray-700"></div>
           </motion.div>
           <motion.h1
             className="text-5xl md:text-6xl font-extrabold mb-4 leading-tight tracking-tight"
@@ -125,7 +188,7 @@ const Home = () => {
             </AnimatePresence>
           </motion.h1>
           <motion.h2
-            className="text-2xl md:text-3xl font-semibold mb-6 text-indigo-100"
+            className="text-2xl md:text-3xl font-semibold mb-6 text-indigo-100 dark:text-gray-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
@@ -133,7 +196,7 @@ const Home = () => {
             Full Stack Developer
           </motion.h2>
           <motion.p
-            className="text-lg md:text-xl text-indigo-100 mb-10 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-indigo-100 mb-10 max-w-2xl mx-auto leading-relaxed dark:text-gray-400"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.9 }}
@@ -149,13 +212,13 @@ const Home = () => {
           >
             <Link
               to="/portfolio"
-              className="inline-flex items-center bg-white text-indigo-700 px-8 py-4 rounded-full shadow-lg hover:bg-indigo-100 hover:text-indigo-800 transition-all duration-300 font-bold text-lg group"
+              className="inline-flex items-center bg-white text-indigo-700 px-8 py-4 rounded-full shadow-lg hover:bg-indigo-100 hover:text-indigo-800 transition-all duration-300 font-bold text-lg group dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:hover:text-gray-100"
             >
               View My Work <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center border border-white text-white px-8 py-4 rounded-full hover:bg-white hover:text-indigo-700 transition-colors duration-300 font-bold text-lg"
+              className="inline-flex items-center border border-white text-white px-8 py-4 rounded-full hover:bg-white hover:text-indigo-700 transition-colors duration-300 font-bold text-lg dark:border-gray-500 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Contact Me
             </Link>
@@ -170,7 +233,7 @@ const Home = () => {
               href="https://github.com/your-github-profile" // Replace with your GitHub URL
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110"
+              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110 dark:text-gray-400 dark:hover:text-gray-200"
               aria-label="GitHub Profile"
             >
               <Github className="h-7 w-7" />
@@ -179,14 +242,14 @@ const Home = () => {
               href="https://linkedin.com/in/your-linkedin-profile" // Replace with your LinkedIn URL
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110"
+              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110 dark:text-gray-400 dark:hover:text-gray-200"
               aria-label="LinkedIn Profile"
             >
               <Linkedin className="h-7 w-7" />
             </a>
             <a
               href="mailto:your.email@example.com" // Replace with your email
-              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110"
+              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110 dark:text-gray-400 dark:hover:text-gray-200"
               aria-label="Email Me"
             >
               <Mail className="h-7 w-7" />
@@ -196,16 +259,16 @@ const Home = () => {
       </motion.section>
 
       {/* Skills Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white shadow-inner">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white shadow-inner dark:bg-gray-800 transition-colors duration-500">
         <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="text-4xl font-extrabold text-center mb-14 text-gray-800"
+            className="text-4xl font-extrabold text-center mb-14 text-gray-800 dark:text-gray-100"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
             variants={sectionVariants}
           >
-            My <span className="text-purple-600">Skills</span>
+            My <span className="text-purple-600 dark:text-yellow-400">Skills</span>
           </motion.h2>
           <motion.div
             className="flex flex-wrap justify-center gap-4"
@@ -223,7 +286,7 @@ const Home = () => {
             {skills.map((skill, index) => (
               <motion.span
                 key={index}
-                className="bg-purple-50 text-purple-700 text-base py-3 px-6 rounded-full border border-purple-200 hover:bg-purple-100 hover:border-purple-300 transition-all duration-300 font-medium shadow-sm"
+                className="bg-purple-50 text-purple-700 text-base py-3 px-6 rounded-full border border-purple-200 hover:bg-purple-100 hover:border-purple-300 transition-all duration-300 font-medium shadow-sm dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:border-gray-500"
                 variants={itemVariants}
                 whileHover={{ scale: 1.05, boxShadow: "0 4px 15px rgba(0,0,0,0.1)" }}
                 whileTap={{ scale: 0.95 }}
@@ -236,19 +299,19 @@ const Home = () => {
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
         <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="text-4xl font-extrabold text-center mb-4 text-gray-800"
+            className="text-4xl font-extrabold text-center mb-4 text-gray-800 dark:text-gray-100"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
             variants={sectionVariants}
           >
-            Featured <span className="text-indigo-600">Projects</span>
+            Featured <span className="text-indigo-600 dark:text-yellow-400">Projects</span>
           </motion.h2>
           <motion.p
-            className="text-center text-gray-600 mb-14 text-lg max-w-xl mx-auto"
+            className="text-center text-gray-600 mb-14 text-lg max-w-xl mx-auto dark:text-gray-400"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
@@ -273,7 +336,7 @@ const Home = () => {
             {projects.map((project) => (
               <motion.div
                 key={project.id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
+                className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2 dark:bg-gray-800 dark:border-gray-700"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
               >
@@ -285,13 +348,13 @@ const Home = () => {
                   />
                 </div>
                 <div className="p-7">
-                  <h3 className="text-2xl font-bold mb-3 text-gray-800 leading-tight">{project.title}</h3>
-                  <p className="text-gray-600 mb-5 leading-relaxed text-base">{project.description}</p>
+                  <h3 className="text-2xl font-bold mb-3 text-gray-800 leading-tight dark:text-gray-100">{project.title}</h3>
+                  <p className="text-gray-600 mb-5 leading-relaxed text-base dark:text-gray-300">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-5">
                     {project.tags.map((tag, index) => (
                       <span
                         key={index}
-                        className="bg-blue-50 text-blue-700 text-sm py-1.5 px-3 rounded-full border border-blue-200 font-medium"
+                        className="bg-blue-50 text-blue-700 text-sm py-1.5 px-3 rounded-full border border-blue-200 font-medium dark:bg-teal-700 dark:text-teal-200 dark:border-teal-600"
                       >
                         {tag}
                       </span>
@@ -299,7 +362,7 @@ const Home = () => {
                   </div>
                   <Link
                     to={project.link}
-                    className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-200 group text-lg"
+                    className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-200 group text-lg dark:text-yellow-400 dark:hover:text-yellow-300"
                   >
                     View Project <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
@@ -316,7 +379,7 @@ const Home = () => {
           >
             <Link
               to="/portfolio"
-              className="inline-flex items-center bg-white text-gray-800 px-8 py-4 rounded-full border border-gray-300 hover:bg-gray-100 transition-colors duration-300 font-bold text-lg shadow-md group"
+              className="inline-flex items-center bg-white text-gray-800 px-8 py-4 rounded-full border border-gray-300 hover:bg-gray-100 transition-colors duration-300 font-bold text-lg shadow-md group dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-600"
             >
               View All Projects <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
@@ -325,7 +388,7 @@ const Home = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-700 to-purple-800 text-white shadow-xl">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-700 to-purple-800 text-white shadow-xl dark:from-gray-900 dark:to-black transition-colors duration-500">
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
             className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight"
@@ -354,7 +417,7 @@ const Home = () => {
           >
             <Link
               to="/contact"
-              className="inline-flex items-center bg-white text-purple-700 px-10 py-5 rounded-full shadow-lg hover:bg-purple-50 hover:text-purple-800 transition-all duration-300 font-bold text-xl transform hover:scale-105"
+              className="inline-flex items-center bg-white text-purple-700 px-10 py-5 rounded-full shadow-lg hover:bg-purple-50 hover:text-purple-800 transition-all duration-300 font-bold text-xl transform hover:scale-105 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:hover:text-gray-100"
             >
               Get in Touch
             </Link>
