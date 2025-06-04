@@ -1,134 +1,187 @@
+import { motion } from 'framer-motion';
+import { Mail, Phone, MapPin, Send } from 'lucide-react'; // Importing icons
+import emailjs from 'emailjs-com';
+
+// Ganti dengan Service ID dan Template ID dari dashboard EmailJS kamu
+const SERVICE_ID = 'YOUR_SERVICE_ID';
+const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const USER_ID = 'pQ46wwtQl0STV97v-'; // Public Key dari EmailJS
+
 const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target as HTMLFormElement, USER_ID)
+      .then(() => {
+        alert('Thank you for your message! I will get back to you soon.');
+        (e.target as HTMLFormElement).reset();
+      }, (error) => {
+        alert('Failed to send message: ' + error.text);
+      });
+  };
+
+  // Animation variants
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+  };
+
+  const formInputVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: 'easeOut' } },
   };
 
   return (
-    <div className="w-screen min-h-screen py-12">
-      <div className="w-full p-0">
-        <h1 className="text-4xl font-bold text-center mb-12">Contact Me</h1>
+    <div className="min-h-screen w-screen bg-gradient-to-br from-blue-50 to-purple-50 py-16 px-4 sm:px-6 lg:px-8 font-sans text-gray-800">
+      <div className="max-w-6xl mx-auto">
+        <motion.h1
+          className="text-5xl font-extrabold text-center mb-16 text-indigo-800 tracking-tight"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Get in <span className="text-purple-600">Touch</span>
+        </motion.h1>
 
-        <div className="grid grid-cols-2 gap-12 w-full">
-          <div className="w-full">
-            <h2 className="text-2xl font-semibold mb-6">Get in Touch</h2>
-            <p className="text-gray-600 mb-8">
-              I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white p-8 sm:p-12 rounded-xl shadow-lg border border-gray-200">
+          {/* Contact Information Section */}
+          <motion.div
+            className="md:border-r md:pr-12 border-gray-200" // Adds a subtle divider on larger screens
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={sectionVariants}
+          >
+            <h2 className="text-3xl font-bold mb-6 text-indigo-700 flex items-center border-b-2 border-purple-400 pb-3">
+              Reach Out
+            </h2>
+            <p className="text-lg text-gray-700 mb-10 leading-relaxed">
+              I'm always excited to discuss new projects, innovative ideas, or potential collaborations.
+              Feel free to send a message, and I'll get back to you as soon as possible.
             </p>
 
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <svg
-                  className="w-6 h-6 text-blue-600 mr-3"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-                <span className="text-gray-600">email@example.com</span>
-              </div>
+            <div className="space-y-6">
+              <motion.div className="flex items-center" variants={itemVariants}>
+                <Mail className="w-8 h-8 text-purple-600 mr-4 flex-shrink-0" />
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Email Address</h3>
+                  <a
+                    href="mailto:dafamangku@gmail.com"
+                    className="text-indigo-600 hover:text-indigo-800 text-lg transition-colors duration-200"
+                  >
+                    dafamangku@gmail.com
+                  </a>
+                </div>
+              </motion.div>
 
-              <div className="flex items-center">
-                <svg
-                  className="w-6 h-6 text-blue-600 mr-3"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                  />
-                </svg>
-                <span className="text-gray-600">+1 234 567 890</span>
-              </div>
+              <motion.div className="flex items-center" variants={itemVariants}>
+                <Phone className="w-8 h-8 text-purple-600 mr-4 flex-shrink-0" />
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Phone Number</h3>
+                  <a
+                    href="tel:+6281234567890"
+                    className="text-indigo-600 hover:text-indigo-800 text-lg transition-colors duration-200"
+                  >
+                    +62 812-3456-7890
+                  </a>
+                </div>
+              </motion.div>
 
-              <div className="flex items-center">
-                <svg
-                  className="w-6 h-6 text-blue-600 mr-3"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-                <span className="text-gray-600">New York, NY, USA</span>
-              </div>
+              <motion.div className="flex items-center" variants={itemVariants}>
+                <MapPin className="w-8 h-8 text-purple-600 mr-4 flex-shrink-0" />
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Location</h3>
+                  <p className="text-gray-700 text-lg">Jakarta, Indonesia</p>
+                </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
-          <div>
+          {/* Contact Form Section */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={sectionVariants}
+          >
+            <h2 className="text-3xl font-bold mb-6 text-indigo-700 flex items-center border-b-2 border-purple-400 pb-3">
+              Send Me a Message
+            </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              <motion.div variants={formInputVariants}>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                   Name
                 </label>
                 <input
                   type="text"
                   id="name"
                   name="name"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-gray-400"
+                  placeholder="Your Name"
                   required
                 />
-              </div>
+              </motion.div>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <motion.div variants={formInputVariants}>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                   Email
                 </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-gray-400"
+                  placeholder="your.email@example.com"
                   required
                 />
-              </div>
+              </motion.div>
 
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+              <motion.div variants={formInputVariants}>
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                  Subject (Optional)
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-gray-400"
+                  placeholder="Project Inquiry, Collaboration, etc."
+                />
+              </motion.div>
+
+              <motion.div variants={formInputVariants}>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
                   Message
                 </label>
                 <textarea
                   id="message"
                   name="message"
-                  rows={4}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  rows={5}
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 placeholder-gray-400"
+                  placeholder="Tell me about your project or inquiry..."
                   required
                 ></textarea>
-              </div>
+              </motion.div>
 
-              <button
+              <motion.button
                 type="submit"
-                className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
+                className="w-full inline-flex items-center justify-center bg-purple-600 text-white px-6 py-3 rounded-md font-bold text-lg shadow-md hover:bg-purple-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transform hover:scale-105"
+                variants={itemVariants}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                Send Message
-              </button>
+                Send Message <Send className="ml-3 h-5 w-5" />
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Contact; 
+export default Contact;
