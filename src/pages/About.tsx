@@ -1,195 +1,433 @@
-import { motion } from 'framer-motion';
-import ReactLogo from '../assets/icons/react-original.svg';
-import JavaScriptLogo from '../assets/icons/javascript-original.svg';
-import TypeScriptLogo from '../assets/icons/typescript-original.svg';
-import HTML5Logo from '../assets/icons/html5-original.svg';
-import CSS3Logo from '../assets/icons/css3-original.svg';
-import JavaLogo from '../assets/icons/java-original.svg';
-import PythonLogo from '../assets/icons/python-original.svg';
+import { Link } from "react-router-dom";
+import { ArrowRight, Github, Linkedin, Mail, Sun, Moon } from "lucide-react"; // Ikon Sun dan Moon diimpor di sini
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react"; // useState dan useEffect diimpor di sini
 
-// RustLogo fallback ke ReactLogo
-const RustLogo = ReactLogo;
-import NodejsLogo from '../assets/icons/nodejs-original.svg';
-import ExpressLogo from '../assets/icons/express-original.svg';
-import MongoDBLogo from '../assets/icons/mongodb-original.svg';
-import OracleLogo from '../assets/icons/oracle-original.svg';
-import PostgreSQLLogo from '../assets/icons/postgresql-original.svg';
-// AWSLogo fallback ke ReactLogo
-const AWSLogo = ReactLogo;
-import DebianLogo from '../assets/icons/debian-original.svg';
-import FlutterLogo from '../assets/icons/flutter-original.svg';
-import FigmaLogo from '../assets/icons/figma-original.svg';
-import DartLogo from '../assets/icons/dart-original.svg';
-// KafkaLogo fallback ke ReactLogo
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  image: string;
+  link: string;
+}
 
-const About = () => {
-  // Define skills with their corresponding image paths
-  // Map these to the image_cce93d.png file
-  const skillsData = [
-    { name: 'React', icon: ReactLogo },
-    { name: 'JavaScript', icon: JavaScriptLogo },
-    { name: 'TypeScript', icon: TypeScriptLogo },
-    { name: 'HTML5', icon: HTML5Logo },
-    { name: 'CSS3', icon: CSS3Logo },
-    { name: 'Java', icon: JavaLogo },
-    { name: 'Python', icon: PythonLogo },
-    { name: 'Rust', icon: RustLogo },
-    { name: 'Node.js', icon: NodejsLogo },
-    { name: 'Express.js', icon: ExpressLogo },
-    { name: 'MongoDB', icon: MongoDBLogo },
-    { name: 'Oracle', icon: OracleLogo },
-    { name: 'PostgreSQL', icon: PostgreSQLLogo },
-    { name: 'AWS', icon: AWSLogo },
-    { name: 'Debian', icon: DebianLogo },
-    { name: 'Flutter', icon: FlutterLogo },
-    { name: 'Figma', icon: FigmaLogo },
-    { name: 'Dart', icon: DartLogo },
+const Home = () => {
+  // State untuk melacak dark mode
+  const [darkMode, setDarkMode] = useState(() => {
+    // Inisialisasi dark mode dari local storage atau preferensi sistem
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        return savedTheme === 'dark';
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false; // Default ke light mode jika tidak di lingkungan browser
+  });
+
+  // Efek samping untuk menerapkan atau menghapus kelas 'dark' dari elemen <html>
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [darkMode]);
+
+  // Fungsi untuk mengubah status dark mode
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  const projects: Project[] = [
+    {
+      id: 1,
+      title: "E-commerce Platform",
+      description:
+        "A full-stack e-commerce solution with secure payment processing and efficient inventory management. Built for scalability and a seamless user experience.",
+      tags: ["React", "TypeScript", "Tailwind CSS", "Stripe", "Node.js"],
+      image: "/placeholder.svg?height=200&width=400",
+      link: "/portfolio/ecommerce",
+    },
+    {
+      id: 2,
+      title: "AI Content Generator",
+      description:
+        "An innovative AI-powered application designed to generate engaging marketing content from user prompts, significantly boosting productivity for content creators.",
+      tags: ["React", "Node.js", "OpenAI", "MongoDB", "Express"],
+      image: "/placeholder.svg?height=200&width=400",
+      link: "/portfolio/ai-generator",
+    },
+    {
+      id: 3,
+      title: "Health & Fitness Tracker",
+      description:
+        "A comprehensive mobile-first application that empowers users to track workouts, monitor nutrition, and visualize health metrics, fostering a healthier lifestyle.",
+      tags: ["React Native", "Firebase", "Redux", "Charts", "Expo"],
+      image: "/placeholder.svg?height=200&width=400",
+      link: "/portfolio/fitness-tracker",
+    },
   ];
 
-  // Animation variants
-  const containerVariants = {
+  const skills = [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Node.js",
+    "Tailwind CSS",
+    "GraphQL",
+    "PostgreSQL",
+    "AWS",
+    "Docker",
+    "MongoDB",
+    "Express.js",
+    "Figma",
+  ];
+
+  // Animation variants for sections
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  // Animation variants for individual items (e.g., skills, projects)
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
+  };
+
+  // Add typing animation variants
+  const typingVariants = {
     hidden: { opacity: 0 },
-    visible: {
+    visible: (i: number) => ({
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        delay: i * 0.1,
+        duration: 0.2,
       },
-    },
+    }),
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  const skillIconVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-    hover: { scale: 1.1, boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.2)", transition: { duration: 0.2 } },
-  };
+  // Split name into characters for typing animation
+  const name = "Dafa Ahmad Fahrisi";
+  const nameChars = name.split("");
 
   return (
-    <div className="w-screen min-h-screen bg-gradient-to-br from-gray-50 to-indigo-100 py-16 px-4 sm:px-6 lg:px-8 font-sans text-gray-800">
-      <div className="max-w-7xl mx-auto">
-        <motion.h1
-          className="text-5xl font-extrabold text-center mb-16 text-indigo-800 tracking-tight"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+    <main className="w-screen min-h-screen bg-gray-50 font-sans text-gray-900 dark:bg-gray-900 dark:text-gray-50 transition-colors duration-500">
+      {/* Tombol Dark Mode Toggle */}
+      <div className="fixed top-6 right-6 z-50">
+        <motion.button
+          onClick={toggleDarkMode}
+          className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg flex items-center justify-center border border-gray-200 dark:border-gray-700 transition-colors duration-300"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Toggle dark mode"
         >
-          About <span className="text-purple-600">Me</span>
-        </motion.h1>
+          <AnimatePresence mode="wait" initial={false}>
+            {darkMode ? ( // Jika dark mode aktif, tampilkan ikon bulan
+              <motion.div
+                key="moon"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Moon className="h-6 w-6 text-yellow-400" />
+              </motion.div>
+            ) : ( // Jika light mode aktif, tampilkan ikon matahari
+              <motion.div
+                key="sun"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Sun className="h-6 w-6 text-orange-500" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-          {/* Who I Am Section */}
+      {/* Hero Section */}
+      <motion.section
+        className="relative flex flex-col items-center justify-center py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg dark:from-gray-800 dark:to-gray-950 transition-colors duration-500"
+        initial="hidden"
+        animate="visible"
+        variants={sectionVariants}
+      >
+        <div className="max-w-4xl text-center">
           <motion.div
-            className="bg-white p-8 rounded-xl shadow-lg border border-gray-200"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            className="relative mb-8"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <motion.h2
-              className="text-3xl font-bold mb-6 text-indigo-700 border-b-2 border-purple-400 pb-2 inline-block"
-              variants={itemVariants}
-            >
-              Who I Am
-            </motion.h2>
-            <motion.p className="text-lg text-gray-700 mb-6 leading-relaxed" variants={itemVariants}>
-              I am a passionate Full Stack Developer dedicated to building intuitive and performant web applications.
-              My journey in software development is driven by a deep curiosity for technology and a commitment
-              to crafting seamless digital experiences.
-            </motion.p>
-            <motion.p className="text-lg text-gray-700 leading-relaxed" variants={itemVariants}>
-              Beyond coding, I enjoy exploring new technological frontiers, contributing to open-source projects,
-              and sharing insights through technical articles. I believe in continuous learning and leveraging
-              technology to solve real-world problems.
-            </motion.p>
+            <div className="absolute -inset-1.5 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full blur-md opacity-75 animate-pulse-slow dark:from-gray-600 dark:to-gray-700"></div>
           </motion.div>
-
-          {/* My Skills Section */}
-          <motion.div
-            className="bg-white p-8 rounded-xl shadow-lg border border-gray-200"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+          <motion.h1
+            className="text-5xl md:text-6xl font-extrabold mb-4 leading-tight tracking-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <motion.h2
-              className="text-3xl font-bold mb-6 text-indigo-700 border-b-2 border-purple-400 pb-2 inline-block"
-              variants={itemVariants}
-            >
-              My Skills
-            </motion.h2>
-            <motion.div
-              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4"
-              variants={containerVariants} // Apply stagger to the grid itself
-            >
-              {skillsData.map((skill) => (
-                <motion.div
-                  key={skill.name}
-                  className="flex flex-col items-center p-3 rounded-lg bg-gray-50 border border-gray-200 hover:bg-indigo-50 transition-colors duration-200 cursor-pointer"
-                  variants={skillIconVariants}
-                  whileHover="hover"
-                  whileTap={{ scale: 0.95 }}
+            <AnimatePresence>
+              {nameChars.map((char, index) => (
+                <motion.span
+                  key={index}
+                  custom={index}
+                  variants={typingVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="inline-block"
                 >
-                  <img src={skill.icon} alt={skill.name} className="h-10 w-10 mb-2 object-contain" />
-                  <span className="text-sm font-medium text-gray-700 text-center">{skill.name}</span>
-                </motion.div>
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
               ))}
-            </motion.div>
+            </AnimatePresence>
+          </motion.h1>
+          <motion.h2
+            className="text-2xl md:text-3xl font-semibold mb-6 text-indigo-100 dark:text-gray-300"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
+            Full Stack Developer
+          </motion.h2>
+          <motion.p
+            className="text-lg md:text-xl text-indigo-100 mb-10 max-w-2xl mx-auto leading-relaxed dark:text-gray-400"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+          >
+            I craft elegant, user-friendly web applications with modern technologies. Focused on creating exceptional
+            digital experiences that solve real problems with clean, efficient code.
+          </motion.p>
+          <motion.div
+            className="flex flex-wrap gap-5 justify-center mb-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.1 }}
+          >
+            <Link
+              to="/portfolio"
+              className="inline-flex items-center bg-white text-indigo-700 px-8 py-4 rounded-full shadow-lg hover:bg-indigo-100 hover:text-indigo-800 transition-all duration-300 font-bold text-lg group dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:hover:text-gray-100"
+            >
+              View My Work <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center border border-white text-white px-8 py-4 rounded-full hover:bg-white hover:text-indigo-700 transition-colors duration-300 font-bold text-lg dark:border-gray-500 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+            >
+              Contact Me
+            </Link>
+          </motion.div>
+          <motion.div
+            className="flex space-x-6 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.3 }}
+          >
+            <a
+              href="https://github.com/your-github-profile" // Ganti dengan URL GitHub Anda
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110 dark:text-gray-400 dark:hover:text-gray-200"
+              aria-label="GitHub Profile"
+            >
+              <Github className="h-7 w-7" />
+            </a>
+            <a
+              href="https://linkedin.com/in/your-linkedin-profile" // Ganti dengan URL LinkedIn Anda
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110 dark:text-gray-400 dark:hover:text-gray-200"
+              aria-label="LinkedIn Profile"
+            >
+              <Linkedin className="h-7 w-7" />
+            </a>
+            <a
+              href="mailto:your.email@example.com" // Ganti dengan email Anda
+              className="p-3 text-white hover:text-indigo-200 transition-colors duration-300 transform hover:scale-110 dark:text-gray-400 dark:hover:text-gray-200"
+              aria-label="Email Me"
+            >
+              <Mail className="h-7 w-7" />
+            </a>
           </motion.div>
         </div>
+      </motion.section>
 
-        {/* Education & Experience Section */}
-        <motion.div
-          className="mt-20 p-8 rounded-xl shadow-lg bg-white border border-gray-200"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
+      {/* Skills Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white shadow-inner dark:bg-gray-800 transition-colors duration-500">
+        <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="text-3xl font-bold mb-8 text-indigo-700 border-b-2 border-purple-400 pb-2 inline-block"
-            variants={itemVariants}
+            className="text-4xl font-extrabold text-center mb-14 text-gray-800 dark:text-gray-100"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
           >
-            Education & Experience
+            My <span className="text-purple-600 dark:text-yellow-400">Skills</span>
           </motion.h2>
-          <div className="space-y-8">
-            <motion.div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-xl transition-shadow duration-300" variants={itemVariants}>
-              <h3 className="text-2xl font-bold mb-2 text-gray-900">Bachelor of Computer Science</h3>
-              <p className="text-indigo-600 font-semibold mb-2">University Name, 2018-2022</p>
-              <p className="text-gray-700 leading-relaxed">
-                Specialized in Software Engineering and Web Development. Gained strong theoretical foundations
-                and practical skills in algorithms, data structures, and system design. Graduated with honors.
-              </p>
-            </motion.div>
+          <motion.div
+            className="flex flex-wrap justify-center gap-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
+            {skills.map((skill, index) => (
+              <motion.span
+                key={index}
+                className="bg-purple-50 text-purple-700 text-base py-3 px-6 rounded-full border border-purple-200 hover:bg-purple-100 hover:border-purple-300 transition-all duration-300 font-medium shadow-sm dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:border-gray-500"
+                variants={itemVariants}
+                whileHover={{ scale: 1.05, boxShadow: "0 4px 15px rgba(0,0,0,0.1)" }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {skill}
+              </motion.span>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
-            <motion.div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-xl transition-shadow duration-300" variants={itemVariants}>
-              <h3 className="text-2xl font-bold mb-2 text-gray-900">Senior Full Stack Developer</h3>
-              <p className="text-indigo-600 font-semibold mb-2">Company Name, 2022-Present</p>
-              <p className="text-gray-700 leading-relaxed">
-                Led the development of scalable enterprise-level web applications, focusing on React, Node.js,
-                and cloud infrastructure (AWS). Collaborated with cross-functional teams to deliver high-quality,
-                impactful software solutions.
-              </p>
-            </motion.div>
+      {/* Projects Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
+        <div className="max-w-6xl mx-auto">
+          <motion.h2
+            className="text-4xl font-extrabold text-center mb-4 text-gray-800 dark:text-gray-100"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
+            Featured <span className="text-indigo-600 dark:text-yellow-400">Projects</span>
+          </motion.h2>
+          <motion.p
+            className="text-center text-gray-600 mb-14 text-lg max-w-xl mx-auto dark:text-gray-400"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
+            A selection of my recent work, showcasing my skills across various technologies and industries. Each project
+            reflects my commitment to quality and problem-solving.
+          </motion.p>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
+          >
+            {projects.map((project) => (
+              <motion.div
+                key={project.id}
+                className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2 dark:bg-gray-800 dark:border-gray-700"
+                variants={itemVariants}
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="aspect-video w-full overflow-hidden">
+                  <img
+                    src={project.image || "/placeholder.svg"}
+                    alt={project.title}
+                    className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-110"
+                  />
+                </div>
+                <div className="p-7">
+                  <h3 className="text-2xl font-bold mb-3 text-gray-800 leading-tight dark:text-gray-100">{project.title}</h3>
+                  <p className="text-gray-600 mb-5 leading-relaxed text-base dark:text-gray-300">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {project.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="bg-blue-50 text-blue-700 text-sm py-1.5 px-3 rounded-full border border-blue-200 font-medium dark:bg-teal-700 dark:text-teal-200 dark:border-teal-600"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <Link
+                    to={project.link}
+                    className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-200 group text-lg dark:text-yellow-400 dark:hover:text-yellow-300"
+                  >
+                    View Project <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+          <motion.div
+            className="mt-16 text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
+            <Link
+              to="/portfolio"
+              className="inline-flex items-center bg-white text-gray-800 px-8 py-4 rounded-full border border-gray-300 hover:bg-gray-100 transition-colors duration-300 font-bold text-lg shadow-md group dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-600"
+            >
+              View All Projects <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
 
-            {/* Add more experience or education entries as needed */}
-            <motion.div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-xl transition-shadow duration-300" variants={itemVariants}>
-              <h3 className="text-2xl font-bold mb-2 text-gray-900">Freelance Web Developer</h3>
-              <p className="text-indigo-600 font-semibold mb-2">Self-employed, 2021-Present</p>
-              <p className="text-gray-700 leading-relaxed">
-                Executed diverse projects for clients, ranging from custom business websites to e-commerce platforms.
-                Managed full project lifecycle from conceptualization to deployment, ensuring client satisfaction and
-                technical excellence.
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
-      </div>
-    </div>
+      {/* Call to Action Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-700 to-purple-800 text-white shadow-xl dark:from-gray-900 dark:to-black transition-colors duration-500">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.h2
+            className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
+            Ready to start your project?
+          </motion.h2>
+          <motion.p
+            className="text-xl md:text-2xl mb-10 opacity-95 max-w-2xl mx-auto leading-relaxed"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
+            I'm currently available for freelance work and exciting collaborations. Let's create something amazing
+            together that makes an impact.
+          </motion.p>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+          >
+            <Link
+              to="/contact"
+              className="inline-flex items-center bg-white text-purple-700 px-10 py-5 rounded-full shadow-lg hover:bg-purple-50 hover:text-purple-800 transition-all duration-300 font-bold text-xl transform hover:scale-105 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:hover:text-gray-100"
+            >
+              Get in Touch
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+    </main>
   );
 };
 
-export default About;
+export default Home;
