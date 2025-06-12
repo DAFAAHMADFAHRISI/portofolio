@@ -2,11 +2,28 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Github } from 'lucide-react'; // Icons for project links
 
+interface Project {
+  id: number;
+  title: string;
+  type: 'website' | 'mobile';
+  description: string;
+  image: string;
+  technologies: string[];
+  liveLink: string;
+  githubLink: string;
+}
+
+interface ProjectSectionProps {
+  title: string;
+  projects: Project[];
+}
+
 const Portfolio = () => {
-  const projects = [
+  const projects: Project[] = [
     {
       id: 1,
       title: 'E-commerce Platform',
+      type: 'website',
       description: 'A robust full-stack e-commerce solution with secure payment integration and comprehensive inventory management, designed for a seamless user experience.',
       image: '/assets/projects/ecommerce-mockup.jpg', // Placeholder, replace with actual image
       technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'Stripe', 'Redux', 'Tailwind CSS'],
@@ -16,6 +33,7 @@ const Portfolio = () => {
     {
       id: 2,
       title: 'AI Content Generator',
+      type: 'website',
       description: 'An intelligent web application that leverages OpenAI APIs to generate diverse marketing content, from blog posts to social media captions, boosting productivity.',
       image: '/assets/projects/ai-generator-mockup.jpg', // Placeholder, replace with actual image
       technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'OpenAI API', 'Firebase Functions', 'Firestore'],
@@ -25,6 +43,7 @@ const Portfolio = () => {
     {
       id: 3,
       title: 'Health & Fitness Tracker',
+      type: 'mobile',
       description: 'A mobile-first progressive web app (PWA) for tracking workouts, nutrition, and personal health metrics, featuring intuitive data visualization and goal setting.',
       image: '/assets/projects/fitness-tracker-mockup.jpg', // Placeholder, replace with actual image
       technologies: ['Vue.js', 'Vite', 'PWA', 'GraphQL', 'PostgreSQL', 'Apollo Client', 'Chart.js'],
@@ -32,31 +51,34 @@ const Portfolio = () => {
       githubLink: 'https://github.com/your-repo/fitness-tracker', // Replace with actual link
     },
     {
-        id: 4,
-        title: 'Real-time Chat Application',
-        description: 'A real-time chat application with group chats, private messaging, and user presence indicators, built for instant communication.',
-        image: '/assets/projects/chat-app-mockup.jpg', // Placeholder, replace with actual image
-        technologies: ['React', 'Socket.IO', 'Node.js', 'Express', 'Redis', 'WebSockets'],
-        liveLink: 'https://chat-app.example.com', // Replace with actual link
-        githubLink: 'https://github.com/your-repo/chat-app', // Replace with actual link
+      id: 4,
+      title: 'Real-time Chat Application',
+      type: 'mobile',
+      description: 'A real-time chat application with group chats, private messaging, and user presence indicators, built for instant communication.',
+      image: '/assets/projects/chat-app-mockup.jpg', // Placeholder, replace with actual image
+      technologies: ['React', 'Socket.IO', 'Node.js', 'Express', 'Redis', 'WebSockets'],
+      liveLink: 'https://chat-app.example.com', // Replace with actual link
+      githubLink: 'https://github.com/your-repo/chat-app', // Replace with actual link
     },
     {
-        id: 5,
-        title: 'Dev Portfolio Template',
-        description: 'A highly customizable and performant personal portfolio template designed for developers, featuring modern UI/UX and SEO optimization.',
-        image: '/assets/projects/portfolio-template-mockup.jpg', // Placeholder, replace with actual image
-        technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'React Router'],
-        liveLink: 'https://portfolio-template.example.com', // This very portfolio!
-        githubLink: 'https://github.com/your-repo/portfolio-template',
+      id: 5,
+      title: 'Dev Portfolio Template',
+      type: 'website',
+      description: 'A highly customizable and performant personal portfolio template designed for developers, featuring modern UI/UX and SEO optimization.',
+      image: '/assets/projects/portfolio-template-mockup.jpg', // Placeholder, replace with actual image
+      technologies: ['React', 'Tailwind CSS', 'Framer Motion', 'React Router'],
+      liveLink: 'https://portfolio-template.example.com', // This very portfolio!
+      githubLink: 'https://github.com/your-repo/portfolio-template',
     },
     {
-        id: 6,
-        title: 'Travel Planning App',
-        description: 'An interactive web application helping users plan travel itineraries, discover attractions, and manage bookings with a clean, intuitive interface.',
-        image: '/assets/projects/travel-app-mockup.jpg', // Placeholder, replace with actual image
-        technologies: ['Angular', 'RxJS', 'Node.js', 'Google Maps API', 'Passport.js', 'JWT'],
-        liveLink: 'https://travel-app.example.com', // Replace with actual link
-        githubLink: 'https://github.com/your-repo/travel-app',
+      id: 6,
+      title: 'Travel Planning App',
+      type: 'mobile',
+      description: 'An interactive web application helping users plan travel itineraries, discover attractions, and manage bookings with a clean, intuitive interface.',
+      image: '/assets/projects/travel-app-mockup.jpg', // Placeholder, replace with actual image
+      technologies: ['Angular', 'RxJS', 'Node.js', 'Google Maps API', 'Passport.js', 'JWT'],
+      liveLink: 'https://travel-app.example.com', // Replace with actual link
+      githubLink: 'https://github.com/your-repo/travel-app',
     },
   ];
 
@@ -75,6 +97,82 @@ const Portfolio = () => {
   const imageHoverVariants = {
     hover: { scale: 1.1, transition: { duration: 0.4, ease: 'easeOut' } },
   };
+
+  // Separate projects by type
+  const websiteProjects = projects.filter(project => project.type === 'website');
+  const mobileProjects = projects.filter(project => project.type === 'mobile');
+
+  const ProjectSection = ({ title, projects }: ProjectSectionProps) => (
+    <motion.div
+      className="mb-16"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={sectionVariants}
+    >
+      <h2 className="text-3xl font-bold mb-8 text-center text-true-blue dark:text-mustard-seed">{title}</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {projects.map((project: Project) => (
+          <motion.div
+            key={project.id}
+            className="bg-mustard-seed dark:bg-gray-800 rounded-xl shadow-lg flex flex-col overflow-hidden border border-true-blue dark:border-gray-700 cursor-pointer"
+            variants={projectCardVariants}
+            whileHover="hover"
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="aspect-video w-full overflow-hidden">
+              <motion.img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover transition-transform duration-300"
+                variants={imageHoverVariants}
+              />
+            </div>
+            <div className="p-7 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-2xl font-bold mb-3 text-true-blue dark:text-white leading-tight">{project.title}</h3>
+                <p className="text-true-blue dark:text-gray-300 mb-5 leading-relaxed text-base">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {project.technologies.map((tech: string, index: number) => (
+                    <span
+                      key={index}
+                      className="bg-true-blue text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-sm dark:bg-gray-700 dark:text-white"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-4 mt-auto"> {/* mt-auto pushes links to bottom */}
+                {project.liveLink && (
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center bg-true-blue text-white px-5 py-2.5 rounded-full font-semibold hover:bg-mustard-seed hover:text-true-blue transition-colors duration-300 shadow-md group dark:bg-gray-700 dark:text-white dark:hover:bg-true-blue dark:hover:text-mustard-seed"
+                    aria-label={`View live demo of ${project.title}`}
+                  >
+                    Live Demo <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:rotate-6" />
+                  </a>
+                )}
+                {project.githubLink && (
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-true-blue border border-true-blue px-5 py-2.5 rounded-full font-semibold hover:bg-mustard-seed hover:text-true-blue transition-colors duration-300 group dark:text-gray-300 dark:border-gray-500 dark:hover:bg-true-blue dark:hover:text-mustard-seed"
+                    aria-label={`View GitHub repository for ${project.title}`}
+                  >
+                    GitHub <Github className="ml-2 h-4 w-4 transition-transform group-hover:scale-110" />
+                  </a>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  );
 
   return (
     <div className="min-h-screen w-screen bg-gradient-to-br from-mustard-seed to-true-blue dark:from-gray-900 dark:to-black py-16 px-4 sm:px-6 lg:px-8 font-sans text-true-blue dark:text-gray-50">
@@ -96,78 +194,8 @@ const Portfolio = () => {
           A showcase of my recent work, highlighting my expertise in full-stack development and passion for creating impactful digital solutions.
         </motion.p>
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={{
-            visible: {
-              transition: {
-                staggerChildren: 0.15, // Delay between each project card animation
-              },
-            },
-          }}
-        >
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              className="bg-mustard-seed dark:bg-gray-800 rounded-xl shadow-lg flex flex-col overflow-hidden border border-true-blue dark:border-gray-700 cursor-pointer"
-              variants={projectCardVariants}
-              whileHover="hover"
-              whileTap={{ scale: 0.98 }}
-            >
-              <div className="aspect-video w-full overflow-hidden">
-                <motion.img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-300"
-                  variants={imageHoverVariants}
-                />
-              </div>
-              <div className="p-7 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-2xl font-bold mb-3 text-true-blue dark:text-white leading-tight">{project.title}</h3>
-                  <p className="text-true-blue dark:text-gray-300 mb-5 leading-relaxed text-base">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {project.technologies.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="bg-true-blue text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-sm dark:bg-gray-700 dark:text-white"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-4 mt-auto"> {/* mt-auto pushes links to bottom */}
-                  {project.liveLink && (
-                    <a
-                      href={project.liveLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center bg-true-blue text-white px-5 py-2.5 rounded-full font-semibold hover:bg-mustard-seed hover:text-true-blue transition-colors duration-300 shadow-md group dark:bg-gray-700 dark:text-white dark:hover:bg-true-blue dark:hover:text-mustard-seed"
-                      aria-label={`View live demo of ${project.title}`}
-                    >
-                      Live Demo <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:rotate-6" />
-                    </a>
-                  )}
-                  {project.githubLink && (
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-true-blue border border-true-blue px-5 py-2.5 rounded-full font-semibold hover:bg-mustard-seed hover:text-true-blue transition-colors duration-300 group dark:text-gray-300 dark:border-gray-500 dark:hover:bg-true-blue dark:hover:text-mustard-seed"
-                      aria-label={`View GitHub repository for ${project.title}`}
-                    >
-                      GitHub <Github className="ml-2 h-4 w-4 transition-transform group-hover:scale-110" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <ProjectSection title="Website Projects" projects={websiteProjects} />
+        <ProjectSection title="Mobile Projects" projects={mobileProjects} />
 
         {/* Optional: Call to action for more projects or contact */}
         <motion.div
