@@ -74,41 +74,41 @@ const Resume = () => {
   };
 
   return (
-    <div className="w-screen min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 py-16 px-4 sm:px-6 lg:px-8 font-sans text-gray-800">
+    <div className="w-screen min-h-screen bg-gradient-to-br from-mustard-seed to-true-blue py-16 px-4 sm:px-6 lg:px-8 font-sans text-black">
       <div className="max-w-6xl mx-auto">
         <motion.h1
-          className="text-5xl font-extrabold text-center mb-16 text-indigo-800 tracking-tight"
+          className="text-5xl font-extrabold text-center mb-16 text-black tracking-tight"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          My <span className="text-purple-600">Resume</span>
+          My <span className="text-mustard-seed">Resume</span>
         </motion.h1>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Main Content Column (Work Experience & Education) */}
           <div className="md:col-span-2 space-y-12">
             <motion.section
-              className="bg-white p-8 rounded-xl shadow-lg border border-gray-200"
+              className="bg-mustard-seed p-8 rounded-xl shadow-lg border border-black"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               variants={sectionVariants}
             >
-              <h2 className="text-3xl font-bold mb-6 text-indigo-700 flex items-center border-b-2 border-purple-400 pb-3">
-                <Briefcase className="h-7 w-7 mr-3 text-purple-500" /> Work Experience
+              <h2 className="text-3xl font-bold mb-6 text-black flex items-center border-b-2 border-black pb-3">
+                <Briefcase className="h-7 w-7 mr-3 text-black" /> Work Experience
               </h2>
               <div className="space-y-8">
                 {experiences.map((exp, index) => (
                   <motion.div
                     key={index}
-                    className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-xl transition-shadow duration-300"
+                    className="bg-mustard-seed p-6 rounded-lg shadow-md border border-true-blue hover:shadow-xl transition-shadow duration-300"
                     variants={itemVariants}
                   >
-                    <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-900">{exp.title}</h3>
-                    <p className="text-purple-600 font-semibold mb-1">{exp.company}</p>
-                    <p className="text-gray-500 text-sm mb-4">{exp.period}</p>
-                    <ul className="list-disc pl-5 space-y-2 text-gray-700 leading-relaxed">
+                    <h3 className="text-xl md:text-2xl font-bold mb-2 text-true-blue">{exp.title}</h3>
+                    <p className="text-mustard-seed font-semibold mb-1">{exp.company}</p>
+                    <p className="text-true-blue text-sm mb-4">{exp.period}</p>
+                    <ul className="list-disc pl-5 space-y-2 text-true-blue leading-relaxed">
                       {exp.description.map((item, i) => (
                         <li key={i}>{item}</li>
                       ))}
@@ -119,26 +119,26 @@ const Resume = () => {
             </motion.section>
 
             <motion.section
-              className="bg-white p-8 rounded-xl shadow-lg border border-gray-200"
+              className="bg-mustard-seed p-8 rounded-xl shadow-lg border border-black"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               variants={sectionVariants}
             >
-              <h2 className="text-3xl font-bold mb-6 text-indigo-700 flex items-center border-b-2 border-purple-400 pb-3">
-                <GraduationCap className="h-7 w-7 mr-3 text-purple-500" /> Education
+              <h2 className="text-3xl font-bold mb-6 text-black flex items-center border-b-2 border-black pb-3">
+                <GraduationCap className="h-7 w-7 mr-3 text-black" /> Education
               </h2>
               <div className="space-y-8">
                 {education.map((edu, index) => (
                   <motion.div
                     key={index}
-                    className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-xl transition-shadow duration-300"
+                    className="bg-mustard-seed p-6 rounded-lg shadow-md border border-true-blue hover:shadow-xl transition-shadow duration-300"
                     variants={itemVariants}
                   >
-                    <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-900">{edu.degree}</h3>
-                    <p className="text-purple-600 font-semibold mb-1">{edu.school}</p>
-                    <p className="text-gray-500 text-sm mb-4">{edu.period}</p>
-                    <p className="text-gray-700 leading-relaxed">{edu.description}</p>
+                    <h3 className="text-xl md:text-2xl font-bold mb-2 text-true-blue">{edu.degree}</h3>
+                    <p className="text-mustard-seed font-semibold mb-1">{edu.school}</p>
+                    <p className="text-true-blue text-sm mb-4">{edu.period}</p>
+                    <p className="text-true-blue leading-relaxed">{edu.description}</p>
                   </motion.div>
                 ))}
               </div>
@@ -148,23 +148,23 @@ const Resume = () => {
           {/* Sidebar Column (Skills) */}
           <div>
             <motion.section
-              className="bg-white p-8 rounded-xl shadow-lg border border-gray-200"
+              className="bg-mustard-seed p-8 rounded-xl shadow-lg border border-black"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               variants={sectionVariants}
             >
-              <h2 className="text-3xl font-bold mb-6 text-indigo-700 flex items-center border-b-2 border-purple-400 pb-3">
-                <Code className="h-7 w-7 mr-3 text-purple-500" /> Skills
+              <h2 className="text-3xl font-bold mb-6 text-black flex items-center border-b-2 border-black pb-3">
+                <Code className="h-7 w-7 mr-3 text-black" /> Skills
               </h2>
               <div className="space-y-6">
                 {skills.map((skillGroup, index) => (
                   <motion.div
                     key={index}
-                    className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-100"
+                    className="bg-mustard-seed p-6 rounded-lg shadow-md border border-true-blue"
                     variants={itemVariants}
                   >
-                    <h3 className="text-lg font-bold mb-4 text-gray-900">{skillGroup.category}</h3>
+                    <h3 className="text-lg font-bold mb-4 text-true-blue">{skillGroup.category}</h3>
                     <motion.div
                       className="flex flex-wrap gap-2"
                       variants={{
@@ -178,7 +178,7 @@ const Resume = () => {
                       {skillGroup.items.map((skill, i) => (
                         <motion.span
                           key={i}
-                          className="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full text-sm font-medium shadow-sm hover:bg-indigo-200 transition-colors cursor-pointer"
+                          className="bg-mustard-seed text-black px-4 py-2 rounded-full text-sm font-medium shadow-sm hover:bg-true-blue hover:text-white transition-colors cursor-pointer"
                           variants={skillTagVariants}
                           whileHover="hover"
                           whileTap={{ scale: 0.95 }}
@@ -204,11 +204,11 @@ const Resume = () => {
         >
           <a
             href="/Dafa_Ahmad_Fahrisi_Resume.pdf" // Update with your actual resume file name
-            className="inline-flex items-center bg-purple-600 text-white px-8 py-4 rounded-full shadow-lg hover:bg-purple-700 transition-all duration-300 font-bold text-lg transform hover:scale-105 group"
+            className="inline-flex items-center bg-black text-mustard-seed px-8 py-4 rounded-full shadow-lg hover:bg-true-blue hover:text-white transition-all duration-300 font-bold text-lg transform hover:scale-105 group"
             download="Dafa_Ahmad_Fahrisi_Resume.pdf" // Suggested downloaded file name
             aria-label="Download Full Resume (PDF)"
           >
-            <Download className="h-6 w-6 mr-3 transition-transform group-hover:rotate-6" />
+            <Download className="h-6 w-6 mr-3 text-mustard-seed transition-transform group-hover:rotate-6" />
             Download Full Resume
           </a>
         </motion.div>

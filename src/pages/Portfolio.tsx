@@ -77,18 +77,18 @@ const Portfolio = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-gradient-to-br from-blue-50 to-purple-50 py-16 px-4 sm:px-6 lg:px-8 font-sans text-gray-800">
+    <div className="min-h-screen w-screen bg-gradient-to-br from-mustard-seed to-true-blue py-16 px-4 sm:px-6 lg:px-8 font-sans text-gray-800">
       <div className="max-w-7xl mx-auto">
         <motion.h1
-          className="text-5xl font-extrabold text-center mb-6 text-indigo-800 tracking-tight"
+          className="text-5xl font-extrabold text-center mb-6 text-true-blue tracking-tight"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          My <span className="text-purple-600">Portfolio</span>
+          My <span className="text-mustard-seed">Portfolio</span>
         </motion.h1>
         <motion.p
-          className="text-xl text-gray-600 text-center mb-16 max-w-2xl mx-auto leading-relaxed"
+          className="text-xl text-true-blue text-center mb-16 max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -112,7 +112,7 @@ const Portfolio = () => {
           {projects.map((project) => (
             <motion.div
               key={project.id}
-              className="bg-white rounded-xl shadow-lg flex flex-col overflow-hidden border border-gray-200 cursor-pointer"
+              className="bg-mustard-seed rounded-xl shadow-lg flex flex-col overflow-hidden border border-true-blue cursor-pointer"
               variants={projectCardVariants}
               whileHover="hover"
               whileTap={{ scale: 0.98 }}
@@ -127,13 +127,13 @@ const Portfolio = () => {
               </div>
               <div className="p-7 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-2xl font-bold mb-3 text-gray-900 leading-tight">{project.title}</h3>
-                  <p className="text-gray-700 mb-5 leading-relaxed text-base">{project.description}</p>
+                  <h3 className="text-2xl font-bold mb-3 text-true-blue leading-tight">{project.title}</h3>
+                  <p className="text-true-blue mb-5 leading-relaxed text-base">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-5">
                     {project.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-full text-xs font-medium shadow-sm"
+                        className="bg-true-blue text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-sm"
                       >
                         {tech}
                       </span>
@@ -146,7 +146,7 @@ const Portfolio = () => {
                       href={project.liveLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center bg-purple-600 text-white px-5 py-2.5 rounded-full font-semibold hover:bg-purple-700 transition-colors duration-300 shadow-md group"
+                      className="inline-flex items-center bg-true-blue text-white px-5 py-2.5 rounded-full font-semibold hover:bg-mustard-seed hover:text-true-blue transition-colors duration-300 shadow-md group"
                       aria-label={`View live demo of ${project.title}`}
                     >
                       Live Demo <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:rotate-6" />
@@ -157,7 +157,7 @@ const Portfolio = () => {
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-gray-700 border border-gray-300 px-5 py-2.5 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-300 group"
+                      className="inline-flex items-center text-true-blue border border-true-blue px-5 py-2.5 rounded-full font-semibold hover:bg-mustard-seed hover:text-true-blue transition-colors duration-300 group"
                       aria-label={`View GitHub repository for ${project.title}`}
                     >
                       GitHub <Github className="ml-2 h-4 w-4 transition-transform group-hover:scale-110" />
@@ -177,12 +177,12 @@ const Portfolio = () => {
           viewport={{ once: true, amount: 0.3 }}
           variants={sectionVariants}
         >
-          <p className="text-xl text-gray-700 mb-6">
+          <p className="text-xl text-true-blue mb-6">
             Looking for more? Explore all my projects or let's discuss your next idea!
           </p>
           <Link
             to="/contact"
-            className="inline-flex items-center bg-indigo-600 text-white px-8 py-4 rounded-full shadow-lg hover:bg-indigo-700 transition-colors duration-300 font-bold text-lg transform hover:scale-105"
+            className="inline-flex items-center bg-true-blue text-white px-8 py-4 rounded-full shadow-lg hover:bg-mustard-seed hover:text-true-blue transition-colors duration-300 font-bold text-lg transform hover:scale-105"
           >
             Let's Collaborate!
           </Link>

@@ -10,6 +10,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        "true-blue": "#0E5FB4",
+        "mustard-seed": "#D8D262",
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',

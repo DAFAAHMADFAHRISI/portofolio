@@ -1,13 +1,36 @@
 import { Link, NavLink } from 'react-router-dom';
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react'; // For the mobile menu icon
+import { useState, useEffect } from 'react';
+import { Menu, X, Sun, Moon } from 'lucide-react'; // For the mobile menu icon and dark mode icons
 import { motion } from 'framer-motion'; // For animations
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // State to manage mobile menu open/close
+  const [darkMode, setDarkMode] = useState(() => {
+    // Initialize dark mode from localStorage or system preference
+    const savedMode = localStorage.getItem('darkMode');
+    if (savedMode) {
+      return JSON.parse(savedMode);
+    } else {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+  });
+
+  useEffect(() => {
+    // Apply or remove the 'dark' class based on darkMode state
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('darkMode', JSON.stringify(darkMode)); // Save preference
+  }, [darkMode]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleDarkMode = () => {
+    setDarkMode((prevMode: boolean) => !prevMode);
   };
 
   // Framer Motion variants for the mobile menu
@@ -40,7 +63,7 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      className="bg-white sticky top-0 z-50 shadow-md backdrop-blur-sm bg-opacity-80"
+      className="bg-mustard-seed sticky top-0 z-50 shadow-lg backdrop-blur-sm bg-opacity-90"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.2 }}
@@ -50,7 +73,7 @@ const Navbar = () => {
           {/* Logo/Brand Name */}
           <Link
             to="/"
-            className="text-2xl font-extrabold text-indigo-700 hover:text-indigo-900 transition-colors duration-300 transform hover:scale-105"
+            className="text-black hover:text-mustard-seed transition-colors duration-300 transform hover:scale-105 text-2xl font-extrabold"
             onClick={() => setIsOpen(false)} // Close menu on logo click
           >
             Dafa.Portfolio
@@ -63,8 +86,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-lg font-medium transition-colors duration-200 ${
                   isActive
-                    ? 'text-indigo-600 border-b-2 border-indigo-600 pb-1'
-                    : 'text-gray-600 hover:text-indigo-600'
+                    ? 'text-black border-b-2 border-black pb-1'
+                    : 'text-black hover:text-true-blue'
                 }`
               }
             >
@@ -75,8 +98,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-lg font-medium transition-colors duration-200 ${
                   isActive
-                    ? 'text-indigo-600 border-b-2 border-indigo-600 pb-1'
-                    : 'text-gray-600 hover:text-indigo-600'
+                    ? 'text-black border-b-2 border-black pb-1'
+                    : 'text-black hover:text-true-blue'
                 }`
               }
             >
@@ -87,8 +110,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-lg font-medium transition-colors duration-200 ${
                   isActive
-                    ? 'text-indigo-600 border-b-2 border-indigo-600 pb-1'
-                    : 'text-gray-600 hover:text-indigo-600'
+                    ? 'text-black border-b-2 border-black pb-1'
+                    : 'text-black hover:text-true-blue'
                 }`
               }
             >
@@ -99,8 +122,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-lg font-medium transition-colors duration-200 ${
                   isActive
-                    ? 'text-indigo-600 border-b-2 border-indigo-600 pb-1'
-                    : 'text-gray-600 hover:text-indigo-600'
+                    ? 'text-black border-b-2 border-black pb-1'
+                    : 'text-black hover:text-true-blue'
                 }`
               }
             >
@@ -111,8 +134,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-lg font-medium transition-colors duration-200 ${
                   isActive
-                    ? 'text-indigo-600 border-b-2 border-indigo-600 pb-1'
-                    : 'text-gray-600 hover:text-indigo-600'
+                    ? 'text-black border-b-2 border-black pb-1'
+                    : 'text-black hover:text-true-blue'
                 }`
               }
             >
@@ -122,9 +145,24 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
-            <button onClick={toggleMenu} className="text-gray-600 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md p-2">
+            <button onClick={toggleMenu} className="text-black hover:text-mustard-seed focus:outline-none focus:ring-2 focus:ring-black rounded-md p-2">
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               <span className="sr-only">{isOpen ? 'Close menu' : 'Open menu'}</span>
+            </button>
+          </div>
+
+          {/* Dark Mode Toggle Button */}
+          <div className="hidden md:flex items-center ml-4">
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black hover:text-mustard-seed"
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? (
+                <Sun className="h-6 w-6" />
+              ) : (
+                <Moon className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -133,7 +171,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <motion.div
-          className="md:hidden bg-white shadow-lg pb-4"
+          className="md:hidden bg-true-blue shadow-lg pb-4"
           initial="hidden"
           animate="visible"
           exit="exit" // Used by AnimatePresence if wrapped around this component
@@ -143,7 +181,7 @@ const Navbar = () => {
             <motion.div variants={menuItemVariants}>
               <NavLink
                 to="/"
-                className="block text-xl font-medium text-gray-800 hover:bg-indigo-50 hover:text-indigo-700 py-2 px-3 rounded-md w-full text-center"
+                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
                 onClick={toggleMenu}
               >
                 Home
@@ -152,7 +190,7 @@ const Navbar = () => {
             <motion.div variants={menuItemVariants}>
               <NavLink
                 to="/about"
-                className="block text-xl font-medium text-gray-800 hover:bg-indigo-50 hover:text-indigo-700 py-2 px-3 rounded-md w-full text-center"
+                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
                 onClick={toggleMenu}
               >
                 About
@@ -161,7 +199,7 @@ const Navbar = () => {
             <motion.div variants={menuItemVariants}>
               <NavLink
                 to="/portfolio"
-                className="block text-xl font-medium text-gray-800 hover:bg-indigo-50 hover:text-indigo-700 py-2 px-3 rounded-md w-full text-center"
+                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
                 onClick={toggleMenu}
               >
                 Portfolio
@@ -170,7 +208,7 @@ const Navbar = () => {
             <motion.div variants={menuItemVariants}>
               <NavLink
                 to="/resume"
-                className="block text-xl font-medium text-gray-800 hover:bg-indigo-50 hover:text-indigo-700 py-2 px-3 rounded-md w-full text-center"
+                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
                 onClick={toggleMenu}
               >
                 Resume
@@ -179,11 +217,21 @@ const Navbar = () => {
             <motion.div variants={menuItemVariants}>
               <NavLink
                 to="/contact"
-                className="block text-xl font-medium text-gray-800 hover:bg-indigo-50 hover:text-indigo-700 py-2 px-3 rounded-md w-full text-center"
+                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
                 onClick={toggleMenu}
               >
                 Contact
               </NavLink>
+            </motion.div>
+            {/* Dark Mode Toggle in Mobile Menu */}
+            <motion.div variants={menuItemVariants}>
+              <button
+                onClick={toggleDarkMode}
+                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
+                aria-label="Toggle dark mode"
+              >
+                {darkMode ? 'Light Mode' : 'Dark Mode'}
+              </button>
             </motion.div>
           </div>
         </motion.div>
