@@ -206,9 +206,9 @@ const About = () => {
             <Briefcase className="h-7 w-7 mr-3" /> Work Experience
           </h2>
           <div className="space-y-8">
-            {experiences.map((exp, index) => (
+            {experiences.map((exp, _index) => (
               <motion.div
-                key={index}
+                key={_index}
                 className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
                 variants={itemVariants}
               >
@@ -216,8 +216,8 @@ const About = () => {
                 <p className="text-mustard-seed font-semibold mb-1">{exp.company}</p>
                 <p className="text-true-blue dark:text-gray-300 text-sm mb-4">{exp.period}</p>
                 <ul className="list-disc pl-5 space-y-2 text-true-blue dark:text-gray-300 leading-relaxed">
-                  {exp.description.map((item, i) => (
-                    <li key={i}>{item}</li>
+                  {exp.description.map((item, _i) => (
+                    <li key={_i}>{item}</li>
                   ))}
                 </ul>
               </motion.div>
@@ -239,9 +239,9 @@ const About = () => {
             <GraduationCap className="h-7 w-7 mr-3" /> Education
           </h2>
           <div className="space-y-8">
-            {education.map((edu, index) => (
+            {education.map((edu, _index) => (
               <motion.div
-                key={index}
+                key={_index}
                 className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
                 variants={itemVariants}
               >
@@ -268,17 +268,17 @@ const About = () => {
             <Code className="h-7 w-7 mr-3" /> Skills
           </h2>
           <div className="grid gap-6 md:grid-cols-2">
-            {skills.map((skillGroup, index) => (
+            {skills.map((skillGroup, _index) => (
               <motion.div
-                key={index}
+                key={_index}
                 className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md"
                 variants={itemVariants}
               >
                 <h3 className="text-lg font-bold mb-4 text-true-blue dark:text-white">{skillGroup.category}</h3>
                 <div className="flex flex-wrap gap-2">
-                  {skillGroup.items.map((skill, i) => (
+                  {skillGroup.items.map((skill, _i) => (
                     <span
-                      key={i}
+                      key={_i}
                       className="px-3 py-1 bg-true-blue text-white rounded-full text-sm dark:bg-gray-600"
                     >
                       {skill}
@@ -302,7 +302,7 @@ const About = () => {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-8 dark:text-white">Featured Projects</h2>
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <motion.div
                 key={project.id}
                 className="rounded-lg shadow-lg overflow-hidden bg-white dark:bg-gray-700 transition-colors duration-300"
@@ -319,9 +319,9 @@ const About = () => {
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map((tag, i) => (
+                    {project.tags.map((tag, _i) => (
                       <span
-                        key={i}
+                        key={_i}
                         className="text-xs px-3 py-1 bg-true-blue text-white rounded-full dark:bg-gray-600"
                       >
                         {tag}

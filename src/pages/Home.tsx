@@ -2,46 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"; // Remove Sun and Moon icons
 import { motion, AnimatePresence } from "framer-motion";
 
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  tags: string[];
-  image: string;
-  link: string;
-}
-
 const Home = () => {
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "E-commerce Platform",
-      description:
-        "A full-stack e-commerce solution with secure payment processing and efficient inventory management. Built for scalability and a seamless user experience.",
-      tags: ["React", "TypeScript", "Tailwind CSS", "Stripe", "Node.js"],
-      image: "/placeholder.svg?height=200&width=400",
-      link: "/portfolio/ecommerce",
-    },
-    {
-      id: 2,
-      title: "AI Content Generator",
-      description:
-        "An innovative AI-powered application designed to generate engaging marketing content from user prompts, significantly boosting productivity for content creators.",
-      tags: ["React", "Node.js", "OpenAI", "MongoDB", "Express"],
-      image: "/placeholder.svg?height=200&width=400",
-      link: "/portfolio/ai-generator",
-    },
-    {
-      id: 3,
-      title: "Health & Fitness Tracker",
-      description:
-        "A comprehensive mobile-first application that empowers users to track workouts, monitor nutrition, and visualize health metrics, fostering a healthier lifestyle.",
-      tags: ["React Native", "Firebase", "Redux", "Charts", "Expo"],
-      image: "/placeholder.svg?height=200&width=400",
-      link: "/portfolio/fitness-tracker",
-    },
-  ];
-
   const skills = [
     "JavaScript",
     "TypeScript",
@@ -162,7 +123,7 @@ const Home = () => {
               to="/portfolio"
               className="inline-flex items-center bg-white text-true-blue px-8 py-4 rounded-full shadow-lg hover:bg-mustard-seed hover:text-white transition-all duration-300 font-bold text-lg group dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:hover:text-gray-100"
             >
-              View My Work <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              View My Portfolio <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/contact"
@@ -246,94 +207,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            className="text-4xl font-extrabold text-center mb-4 text-gray-800 dark:text-gray-100"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            variants={sectionVariants}
-          >
-            Featured <span className="text-true-blue dark:text-mustard-seed">Projects</span>
-          </motion.h2>
-          <motion.p
-            className="text-center text-gray-600 mb-14 text-lg max-w-xl mx-auto dark:text-gray-400"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            variants={sectionVariants}
-          >
-            A selection of my recent work, showcasing my skills across various technologies and industries. Each project
-            reflects my commitment to quality and problem-solving.
-          </motion.p>
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={{
-              visible: {
-                transition: {
-                  staggerChildren: 0.15,
-                },
-              },
-            }}
-          >
-            {projects.map((project) => (
-              <motion.div
-                key={project.id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2 dark:bg-gray-800 dark:border-gray-700"
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="aspect-video w-full overflow-hidden">
-                  <img
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.title}
-                    className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-110"
-                  />
-                </div>
-                <div className="p-7">
-                  <h3 className="text-2xl font-bold mb-3 text-gray-800 leading-tight dark:text-gray-100">{project.title}</h3>
-                  <p className="text-gray-600 mb-5 leading-relaxed text-base dark:text-gray-300">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-5">
-                    {project.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="bg-mustard-seed text-true-blue text-sm py-1.5 px-3 rounded-full border border-true-blue font-medium dark:bg-teal-700 dark:text-teal-200 dark:border-teal-600"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <Link
-                    to={project.link}
-                    className="inline-flex items-center text-true-blue hover:text-mustard-seed font-semibold transition-colors duration-200 group text-lg dark:text-yellow-400 dark:hover:text-yellow-300"
-                  >
-                    View Project <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-          <motion.div
-            className="mt-16 text-center"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            variants={sectionVariants}
-          >
-            <Link
-              to="/portfolio"
-              className="inline-flex items-center bg-white text-true-blue px-8 py-4 rounded-full border border-true-blue hover:bg-mustard-seed hover:text-white transition-colors duration-300 font-bold text-lg shadow-md group dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-600"
-            >
-              View All Projects <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Call to Action Section */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-true-blue to-mustard-seed text-white shadow-xl dark:from-gray-900 dark:to-black transition-colors duration-500">
