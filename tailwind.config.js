@@ -24,8 +24,9 @@ export default {
           800: '#075985',
           900: '#0c4a6e',
         },
+        "dark-purple": "#5D337F",
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 }
