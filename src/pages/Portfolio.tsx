@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Github, Check, Users, List, Clipboard } from 'lucide-react'; // Icons for project links
+import { Github } from 'lucide-react'; // Icons for project links
 
 interface Project {
   id: number;
@@ -52,10 +52,6 @@ const Portfolio = () => {
     hidden: { opacity: 0, scale: 0.9 },
     visible: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 100, damping: 10 } },
     hover: { scale: 1.03, boxShadow: '0px 10px 30px rgba(0,0,0,0.15)', transition: { duration: 0.2 } },
-  };
-
-  const imageHoverVariants = {
-    hover: { scale: 1.1, transition: { duration: 0.4, ease: 'easeOut' } },
   };
 
   // Separate projects by type

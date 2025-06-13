@@ -118,18 +118,6 @@ const Navbar = () => {
               Portfolio
             </NavLink>
             <NavLink
-              to="/resume"
-              className={({ isActive }) =>
-                `text-lg font-medium transition-colors duration-200 ${
-                  isActive
-                    ? 'text-black border-b-2 border-black pb-1'
-                    : 'text-black hover:text-true-blue'
-                }`
-              }
-            >
-              Resume
-            </NavLink>
-            <NavLink
               to="/contact"
               className={({ isActive }) =>
                 `text-lg font-medium transition-colors duration-200 ${
@@ -203,15 +191,6 @@ const Navbar = () => {
                 onClick={toggleMenu}
               >
                 Portfolio
-              </NavLink>
-            </motion.div>
-            <motion.div variants={menuItemVariants}>
-              <NavLink
-                to="/resume"
-                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
-                onClick={toggleMenu}
-              >
-                Resume
               </NavLink>
             </motion.div>
             <motion.div variants={menuItemVariants}>
