@@ -25,6 +25,7 @@ export default {
           900: '#0c4a6e',
         },
         "dark-purple": "#5D337F",
+        "dark-blue-bg": "#1A2C46",
       },
     },
   },
