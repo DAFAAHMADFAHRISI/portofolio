@@ -55,6 +55,17 @@ const Home = () => {
     "MongoDB",
     "Express.js",
     "Figma",
+    "Golang",
+    "Dart",
+    "Flutter",
+    "Python",
+    "Java",
+    "C++",
+    "C#",
+    "PHP",
+    "MySQL",
+    "SQLite",
+    "Redis",
   ];
 
   // Animation variants for sections

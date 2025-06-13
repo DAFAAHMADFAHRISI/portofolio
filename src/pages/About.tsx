@@ -62,11 +62,11 @@ const education = [
 const skills = [
   {
     category: 'Frontend',
-    items: ['React', 'Next.js', 'Vue.js', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Redux', 'Figma'],
+    items: ['React', 'Next.js', 'Vue.js', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Redux', 'Figma', 'Flutter'],
   },
   {
     category: 'Backend',
-    items: ['Node.js', 'Express.js', 'Python', 'Django', 'GraphQL', 'RESTful APIs', 'PostgreSQL', 'MongoDB', 'Redis'],
+    items: ['Node.js', 'Express.js', 'Python', 'Django', 'GraphQL', 'RESTful APIs', 'PostgreSQL', 'MongoDB', 'Redis', 'Java', 'PHP', 'MySQL', 'SQLite'],
   },
   {
     category: 'DevOps & Cloud',
@@ -74,7 +74,7 @@ const skills = [
   },
   {
     category: 'Testing & Tools',
-    items: ['Jest', 'React Testing Library', 'Webpack', 'Babel', 'Jira', 'Agile Methodologies'],
+    items: ['Jest', 'React Testing Library', 'Webpack', 'Babel', 'Jira', 'Agile Methodologies', 'C++', 'C#'],
   },
 ];
 
