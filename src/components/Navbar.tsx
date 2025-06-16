@@ -73,7 +73,7 @@ const Navbar = () => {
           {/* Logo/Brand Name */}
           <Link
             to="/"
-            className="text-black hover:text-mustard-seed transition-colors duration-300 transform hover:scale-105 text-2xl font-extrabold"
+            className="text-white hover:text-white transition-colors duration-300 transform hover:scale-105 text-2xl font-extrabold"
             onClick={() => setIsOpen(false)} // Close menu on logo click
           >
             Dafa.Portfolio
@@ -86,8 +86,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-lg font-medium transition-colors duration-200 ${
                   isActive
-                    ? 'text-black border-b-2 border-black pb-1'
-                    : 'text-black hover:text-true-blue'
+                    ? 'text-white border-b-2 border-white pb-1'
+                    : 'text-white hover:text-true-blue'
                 }`
               }
             >
@@ -98,8 +98,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-lg font-medium transition-colors duration-200 ${
                   isActive
-                    ? 'text-black border-b-2 border-black pb-1'
-                    : 'text-black hover:text-true-blue'
+                    ? 'text-white border-b-2 border-white pb-1'
+                    : 'text-white hover:text-true-blue'
                 }`
               }
             >
@@ -110,8 +110,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-lg font-medium transition-colors duration-200 ${
                   isActive
-                    ? 'text-black border-b-2 border-black pb-1'
-                    : 'text-black hover:text-true-blue'
+                    ? 'text-white border-b-2 border-white pb-1'
+                    : 'text-white hover:text-true-blue'
                 }`
               }
             >
@@ -122,8 +122,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `text-lg font-medium transition-colors duration-200 ${
                   isActive
-                    ? 'text-black border-b-2 border-black pb-1'
-                    : 'text-black hover:text-true-blue'
+                    ? 'text-white border-b-2 border-white pb-1'
+                    : 'text-white hover:text-true-blue'
                 }`
               }
             >
@@ -133,7 +133,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
-            <button onClick={toggleMenu} className="text-black hover:text-mustard-seed focus:outline-none focus:ring-2 focus:ring-black rounded-md p-2">
+            <button onClick={toggleMenu} className="text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white rounded-md p-2">
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               <span className="sr-only">{isOpen ? 'Close menu' : 'Open menu'}</span>
             </button>
@@ -143,7 +143,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center ml-4">
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black hover:text-mustard-seed"
+              className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white hover:text-white"
               aria-label="Toggle dark mode"
             >
               {darkMode ? (
@@ -169,7 +169,7 @@ const Navbar = () => {
             <motion.div variants={menuItemVariants}>
               <NavLink
                 to="/"
-                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
+                className="block text-xl font-medium text-white hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
                 onClick={toggleMenu}
               >
                 Home
@@ -178,7 +178,7 @@ const Navbar = () => {
             <motion.div variants={menuItemVariants}>
               <NavLink
                 to="/about"
-                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
+                className="block text-xl font-medium text-white hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
                 onClick={toggleMenu}
               >
                 About
@@ -187,7 +187,7 @@ const Navbar = () => {
             <motion.div variants={menuItemVariants}>
               <NavLink
                 to="/portfolio"
-                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
+                className="block text-xl font-medium text-white hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
                 onClick={toggleMenu}
               >
                 Portfolio
@@ -196,7 +196,7 @@ const Navbar = () => {
             <motion.div variants={menuItemVariants}>
               <NavLink
                 to="/contact"
-                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
+                className="block text-xl font-medium text-white hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
                 onClick={toggleMenu}
               >
                 Contact
@@ -206,7 +206,7 @@ const Navbar = () => {
             <motion.div variants={menuItemVariants}>
               <button
                 onClick={toggleDarkMode}
-                className="block text-xl font-medium text-black hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
+                className="block text-xl font-medium text-white hover:bg-mustard-seed hover:text-true-blue py-2 px-3 rounded-md w-full text-center"
                 aria-label="Toggle dark mode"
               >
                 {darkMode ? 'Light Mode' : 'Dark Mode'}
