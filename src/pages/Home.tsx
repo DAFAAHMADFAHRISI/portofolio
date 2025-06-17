@@ -93,12 +93,12 @@ const Home = () => {
   const nameChars = name.split("");
 
   return (
-    <main className="w-screen min-h-screen bg-gray-950 font-sans text-true-blue dark:bg-black dark:text-gray-50 transition-colors duration-500 pt-16">
+    <main className="w-screen min-h-screen bg-gradient-to-br from-mustard-seed to-true-blue dark:from-gray-900 dark:to-black font-sans text-true-blue dark:text-gray-50 transition-colors duration-500 pt-16">
       <div className="container mx-auto flex flex-col lg:flex-row items-center justify-center p-8">
 
         {/* Hero Section - Left Box */}
         <motion.section
-          className="relative flex flex-col items-center justify-center py-24 px-4 sm:px-6 lg:px-8 bg-white text-true-blue shadow-lg rounded-3xl lg:w-[55%] dark:bg-white dark:text-gray-900 transition-colors duration-500"
+          className="relative flex flex-col items-center justify-center py-24 px-4 sm:px-6 lg:px-8 bg-white text-true-blue shadow-lg rounded-3xl lg:w-[55%] dark:bg-gray-700 dark:text-white transition-colors duration-500"
           initial="hidden"
           animate="visible"
           variants={sectionVariants}
@@ -207,7 +207,7 @@ const Home = () => {
         </motion.section>
 
         {/* Skills Section - Right Box */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800 bg-opacity-70 backdrop-filter backdrop-blur-lg border border-gray-700 rounded-3xl shadow-xl lg:w-[45%] dark:bg-gray-900 dark:bg-opacity-70 dark:border-gray-700 transition-colors duration-500 lg:-ml-16 z-10">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white bg-opacity-70 backdrop-filter backdrop-blur-lg border border-gray-200 rounded-3xl shadow-xl lg:w-[45%] dark:bg-gray-800 dark:bg-opacity-70 dark:border-gray-700 transition-colors duration-500 lg:-ml-16 z-10">
           <div className="max-w-6xl mx-auto">
             <motion.h2
               className="text-4xl font-extrabold text-center mb-14 text-white dark:text-white"
