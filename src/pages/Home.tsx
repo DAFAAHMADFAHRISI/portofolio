@@ -144,7 +144,7 @@ const Home = () => {
               Full Stack Developer
             </motion.h2>
             <motion.p
-              className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed dark:text-gray-700"
+              className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed dark:text-gray-300"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
