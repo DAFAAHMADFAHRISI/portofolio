@@ -20,6 +20,7 @@ import TypeScriptIcon from '../assets/icons/typescript-original.svg';
 import NodejsIcon from '../assets/icons/nodejs-original.svg';
 import ReactIcon from '../assets/icons/react-original.svg';
 import JavascriptIcon from '../assets/icons/javascript-original.svg';
+import DafaImage from '../../public/assets/projects/dafa.png';
 
 const Home = () => {
   const skillsData = [
@@ -98,24 +99,38 @@ const Home = () => {
 
         {/* Hero Section - Left Box */}
         <motion.section
-          className="relative flex flex-col items-center justify-center py-24 px-4 sm:px-6 lg:px-8 bg-white text-true-blue shadow-lg rounded-3xl lg:w-[55%] dark:bg-gray-700 dark:text-white transition-colors duration-500"
+          className="relative flex flex-col items-start py-24 px-4 sm:px-6 lg:px-8 bg-white text-true-blue shadow-lg rounded-3xl lg:w-[55%] dark:bg-gray-700 dark:text-white transition-colors duration-500"
           initial="hidden"
           animate="visible"
           variants={sectionVariants}
         >
+          {/* Gambar Dafa - Posisi absolut di kiri atas relatif terhadap Hero Section */}
+          <motion.div
+            className="absolute top-4 left-4 w-48 h-48 lg:w-64 lg:h-64 rounded-full overflow-hidden shadow-xl border-4 border-white dark:border-gray-800 z-20"
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+          >
+            <img
+              src={DafaImage}
+              alt="Dafa Ahmad Fahrisi"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
           {/* Main content of Hero Section */}
-          <div className="max-w-4xl text-center">
+          <div className="max-w-4xl text-left ml-[14rem] pt-[13rem]">
             <motion.div
               className="relative mb-8"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              {/* This div seems to be for a glowing circle, adjust if needed */}
-              <div className="absolute -inset-1.5 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full blur-md opacity-75 animate-pulse-slow dark:from-gray-600 dark:to-gray-700"></div>
+              {/* REMOVED: This div was for a glowing circle, adjust if needed */}
+              {/* <div className="absolute -inset-1.5 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full blur-md opacity-75 animate-pulse-slow dark:from-gray-600 dark:to-gray-700"></div> */}
             </motion.div>
             <motion.h1
-              className="text-5xl md:text-6xl font-extrabold mb-4 leading-tight tracking-tight"
+              className="text-5xl md:text-6xl font-extrabold mb-4 leading-tight tracking-tight text-blue-900"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
@@ -136,7 +151,7 @@ const Home = () => {
               </AnimatePresence>
             </motion.h1>
             <motion.h2
-              className="text-2xl md:text-3xl font-semibold mb-6 text-gray-700 dark:text-gray-800"
+              className="text-2xl md:text-3xl font-semibold mb-6 text-gray-900 dark:text-gray-800"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
