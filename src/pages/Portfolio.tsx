@@ -31,6 +31,16 @@ const Portfolio = () => {
       githubLink: 'https://github.com/DAFAAHMADFAHRISI/LuLuSin-FrontEnd',
     },
     {
+      id: 2,
+      title: 'Madura: Jelajahi Pesona Pulau Garam',
+      type: 'website',
+      description: 'Website pariwisata interaktif yang memperkenalkan keindahan, budaya, dan kuliner khas Pulau Madura. Menampilkan destinasi wisata, tradisi lokal, serta galeri foto yang memukau.',
+      image: '/assets/projects/Madura.png',
+      technologies: ['React', 'Tailwind CSS', 'Framer Motion'],
+      liveLink: 'https://wisatamadura.netlify.app/',
+      githubLink: 'https://github.com/DAFAAHMADFAHRISI/Madura-Website',
+    },
+    {
       id: 3,
       title: 'Health & Fitness Tracker',
       type: 'mobile',
@@ -95,6 +105,17 @@ const Portfolio = () => {
                     aria-label={`View GitHub repository for ${project.title}`}
                   >
                     GitHub <Github className="ml-2 h-4 w-4 transition-transform" />
+                  </a>
+                )}
+                {project.liveLink && (
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-white bg-true-blue border border-true-blue px-5 py-2.5 rounded-full font-semibold hover:bg-mustard-seed hover:text-true-blue transition-colors duration-300 group dark:bg-gray-700 dark:text-white dark:border-gray-500 dark:hover:bg-true-blue dark:hover:text-mustard-seed ml-2"
+                    aria-label={`Live preview for ${project.title}`}
+                  >
+                    Live Preview
                   </a>
                 )}
               </div>

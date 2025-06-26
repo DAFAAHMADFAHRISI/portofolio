@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Github, Linkedin, Mail, Search } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import PhotoshopIcon from '../assets/icons/photoshop.svg';
